@@ -1,0 +1,87 @@
+using System;
+
+namespace Lottobollar
+{
+    class Programmering1
+    {
+        public static void Main()
+        {
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~");
+            Console.WriteLine("|  *      *      |");
+            Console.WriteLine("|*   WELCOME   * |");
+            Console.WriteLine("|     TO THE  *  |");
+            Console.WriteLine("|  *  LOTTO!    *|");
+            Console.WriteLine("|    *    *      |");
+            Console.WriteLine("~~~~~~~~~~~~~~~~~~");
+
+
+            const int xNumbers = 10; //Detta är x-antal nummer som vi användaren kommer att skriva in. Efter att 10 st matats in, avslutas programmet.
+            const int minRandom = 0;  
+            const int maxRandom = 25; //Kontrollerar så att användaren skriver in ett tal mellan just 1 och 25.
+
+            
+
+            Console.WriteLine(">>Please enter ten numbers between {0} and {1}: ", minRandom, maxRandom); // Ber användaren att skriva in ett nummer.
+            int[] vector = new int[xNumbers]; //Här skapar vi en vektor för vår xNumbers. Det hela är i int, alltså heltal, så inga decimaler skall användas (rätt logiskt med lotto). 
+            for (int i = 0; i < vector.Length; i++) //Här använder vi oss av en for-loop där vi repeterar vector.Length (length menas med längden av vår array, alltså 10). Här itererar vi dessutom med "i++", som även kan skrivas "i+1" eller "i = i + 1"
+                //Vi har även givit vår variabel (i) startvärdet "0" för att visa startvärdet av vår loop.
+                // for loopen påbörjas med en initializer där som enbart avläses en gång innan vi påbörjar loopen. Vi har variabeln "i" här (int i = 0). 
+                // sedan tittar vi på vår condition (i < numbers.length) och denna måste vara en boolean. Detta avläses alltid innan varje iteration (i++). 
+                // om vår bool blir sann, påbörjas nästa iteration i loopen, annars avslutas loopen. 
+                // ser vi till iterationen (i++), ser vi vad programmet gör i slutet av varje loop. Det går att göra increment (++) och decrement (--).
+            {
+                try
+                {
+                    int number = int.Parse(Console.ReadLine());
+
+                    if (number <= 0 || number > 25)
+                    {
+                        Console.WriteLine(">>The number has to be greater than 0 and lower than 26.\n>>Please try again.");
+                        i--;
+                        continue;
+                    }
+
+                    vector[i] = number;
+                } 
+                catch (FormatException)
+                {
+                    Console.WriteLine(">>Only use numbers.\n>>Try again!");
+                    i--;
+                }
+                ////int number = 0;
+                //if (int.TryParse(Console.ReadLine(), out int number)) //Inlined variabel deklaration rekommenderat av IDE. Blir snyggare kod. Detta kollar även ifall det som skrivs in INTE är en siffra.
+                //{
+                //    vector[i] = number;
+                //}
+                //else //if (number <= 0 || number > 26)
+                //{
+                //    Console.WriteLine(">>You may only enter a number between {0} and {1}.\nPlease try again: ", minRandom, maxRandom);
+                //    i--;
+                //}// ifall inte rätt siffra skrivs in, minskas värdet med 1 i koden inuti loopen. 
+
+            }
+            //Slumpar fram ett heltal mellan [minRandom] och [maxRandom] (0 - 25) samt +1 då det lägsta numret som tas bort skall anges
+            int randomNumber = new Random().Next(minRandom, maxRandom + 1);
+            bool matchingNum = false; // Här skapa vi en kontrollvariabel som visar på en förlust, att inskrivet nummer inte matchar. 
+
+          
+            for (int i = 0; i < vector.Length; i++) //Loppar igenom vectorn.
+            {
+                if (vector[i] == randomNumber)//Kolla om tal x i vektorn är lika med det genererade slumptalet
+                    matchingNum = true; // Om ja, så har vi skapat en kontrollvariabel som visar på vinst!
+                //Sluta repetera
+            }
+            if (matchingNum) //Här kontrollerar vi sedan ifall vår variabel visar på vinst.
+                Console.WriteLine(">>Yay, number " + randomNumber + " is a match! BINGO!!"); //Denna sträng skrivs ut ifall variabel visar vinst.
+            else
+                Console.WriteLine(">>You lost... Better luck next time!"); //Annars skrivs denna sträng ut.
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~");
+                Console.WriteLine("|  *      *      |");
+                Console.WriteLine("|*  YOU ARE NOW *|");
+                Console.WriteLine("|   LEAVING THE  |");
+                Console.WriteLine("|  *  LOTTO!  *  |");
+                Console.WriteLine("|    * BYE!  * * |");
+                Console.WriteLine("~~~~~~~~~~~~~~~~~~");
+        }
+    }
+}
